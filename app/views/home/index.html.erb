@@ -1,0 +1,32 @@
+<a class="pos-show btn btn-default" data-pos="jj" data-for=".editmain" role="button">Adj</a>
+<a class="pos-show btn btn-default" data-pos="nn" data-for=".editmain" role="button">Noun</a>
+<a class="pos-show btn btn-default" data-pos="det" data-for=".editmain" role="button">Article</a>
+<a class="pos-show btn btn-default" data-pos="vbd" data-for=".editmain" role="button">Verb</a>
+<a class="pos-show btn btn-default" data-pos="rb" data-for=".editmain" role="button">Adv.</a>
+<a class="save btn btn-primary" role="button" data-path="<%= pieces_path %>" data-title=".piece-title" data-body=".piece-body">Save</a>
+
+<br />
+<br />
+<div class="input-group input-group-lg">
+</div>
+
+<input type="text" class="piece-title" placeholder="Title">
+<br />
+<div class="editme editmain piece-body">
+  <div>the quick brown fox jumped over the lazy dog</div>
+  <div><br></div>
+  <div>open upon a time, there lived a magical unicorn.</div>
+</div>
+<div class="possed" data-toggle=".piece-body"></div>
+
+<span class="stats" data-for=".editmain"></span>
+
+<% if false %>
+  <div class="jumbotron">
+    <h1>Heading</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu nibh a odio auctor semper in eget ex. Fusce eu iaculis nisl. Duis elementum interdum molestie. Duis id massa sem. Mauris consectetur velit vel metus porttitor, a condimentum leo euismod. Vivamus eu fermentum tortor.</p>
+    <p>
+      <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Get Started &raquo;</a>
+    </p>
+  </div>
+<% end %>

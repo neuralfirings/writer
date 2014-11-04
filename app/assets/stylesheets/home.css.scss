@@ -1,0 +1,66 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.editme {
+  border: solid 1px #ddd;
+  min-height: 300px;
+  padding: 10px;
+
+  font-family: 'Bitter', serif;
+  font-size: 18px;
+  line-height: 1.3em;
+
+  &:focus {
+    outline: 0px;
+    border: solid 0px #ACC5DA;
+  }
+}
+
+.piece-title {
+  outline: 0px;
+  border: 0px;
+  padding: 10px;
+  background: #FFF;
+  width: 100%;
+  font-size: 26px;
+  font-weight: bold;
+  color: #AAA;
+  &:hover {
+    background-color: #F8F8F8;
+  }
+  &:focus {
+    color: #000;
+  }
+}
+.piece-body {
+  border: 0px;
+  height: 600px;
+  overflow-y: auto;
+  &:hover {
+    background-color: #F8F8F8;
+  }
+  &:focus {
+    background-color: #fff;
+  }
+}
+.possed {
+  border: solid 1px #ddd;
+  padding: 10px;
+  font-family: 'Bitter', serif;
+  font-size: 18px;
+  line-height: 1.3em;
+  border: 0px;
+  height: 600px;
+  overflow-y: auto;
+  &:hover {
+    background-color: #F8F8F8;
+  }
+  &:focus {
+    background-color: #fff;
+  }
+}
+
+.stats {
+  color: #AAA;
+}

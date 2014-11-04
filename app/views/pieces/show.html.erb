@@ -1,0 +1,17 @@
+<a class="pos-show btn btn-default" data-pos="jj" data-for=".piece-body" role="button">Adj</a>
+<a class="pos-show btn btn-default" data-pos="nn" data-for=".piece-body" role="button">Noun</a>
+<a class="pos-show btn btn-default" data-pos="det" data-for=".piece-body" role="button">Article</a>
+<a class="pos-show btn btn-default" data-pos="vbd" data-for=".piece-body" role="button">Verb</a>
+<a class="pos-show btn btn-default" data-pos="rb" data-for=".piece-body" role="button">Adv.</a>
+<a class="update btn btn-primary" role="button" data-path="<%= piece_path %>" data-title=".piece-title" data-body=".piece-body">Update</a>
+
+<br />
+<br />
+
+<input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>">
+<br />
+<div class="editme editmain piece-body"><%= raw(@piece.body) %></div>
+
+<div class="possed" data-toggle=".piece-body"></div>
+
+<span class="stats" data-for=".editmain"></span>

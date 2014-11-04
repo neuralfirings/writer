@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  words: 1
+  chars: 1
+  chars_no_space: 1
+  piece_id: 
+
+two:
+  title: MyString
+  body: MyText
+  words: 1
+  chars: 1
+  chars_no_space: 1
+  piece_id: 

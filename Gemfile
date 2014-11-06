@@ -30,6 +30,10 @@ gem 'jbuilder', '~> 1.2'
 # Tag parts of speech
 gem 'engtagger', '~> 0.2.0'
 
+# Tagging
+gem 'acts-as-taggable-on', '~> 3.4.2'
+gem 'acts_as_tree', '~> 2.1.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

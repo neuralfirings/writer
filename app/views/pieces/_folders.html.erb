@@ -1,0 +1,35 @@
+<br />
+<div class="panel-group" id="folder" role="tablist" aria-multiselectable="false">
+  <% @folder.each do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
+            <%= f.name %> (<%= f.taggings_count %>)
+          </a>
+        </h4>
+      </div>
+      <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+        <ul class="list-group">
+          <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
+            <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% if @log %>
+  <strong>Word Count</strong>
+  <canvas id="chart-words-all" width="" height="200px" style="width: 100%"></canvas>
+  <div class="chart-words-all-data">
+    <% @log.each do |l| %>
+      <div 
+        data-piece-id="<%= l.piece_id %>" 
+        data-words="<%= l.words %>" 
+        data-created="<%= l.created_at.strftime("%Y-%m-%d") %>"
+        data-created-display="<%= l.created_at.strftime("%b %d") %>"
+      ></div>
+    <% end %>
+  </div>
+<% end %>

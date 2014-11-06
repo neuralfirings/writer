@@ -4,29 +4,28 @@ class PiecesController < ApplicationController
   end
 
   def update
-    # @id = params[:id]
-    # render text: @id
     @piece = Piece.find(params[:id])
     @piece.update(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
+    @piece.folder_list = params[:piece][:folders]
+    @piece.save
+    @piece.reload
 
     params[:piece][:piece_id] = @piece.id
     @log = Log.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space, :piece_id))
     @log.save
-    
+
     respond_to do | format |  
       format.json { render :json => @piece.id }
     end
-    #   redirect_to @piece
-    # else
-    #   render 'show'
-    # end
   end
  
   def create
     # render text: params.inspect
 
     @piece = Piece.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
+    @piece.folder_list = params[:piece][:folders]
     @piece.save
+    @piece.reload
 
     params[:piece][:piece_id] = @piece.id
     @log = Log.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space, :piece_id))
@@ -40,6 +39,14 @@ class PiecesController < ApplicationController
 
   def show
     @piece = Piece.find(params[:id])
+    @pieces = Piece.all
+    @folder = Piece.folder_counts
+    @log = Log.where(piece_id: @piece.id)
+  end
+
+  def index
+    @pieces = Piece.all
+    @folder = Piece.folder_counts
   end
 
   def pos
@@ -59,5 +66,9 @@ class PiecesController < ApplicationController
       format.json { render :json => params }
     end
   end
+
+  # def piece_params
+  #   params.require(:user).permit(:name, :tag_list) ## Rails 4 strong params usage
+  # end
 
 end

@@ -1,3 +1,85 @@
 // Place all the styles related to the Pieces controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.folder-expand {
+  display: none;
+}
+
+.writing-container {
+  display: relative;
+  height: 100%;
+
+  .folder-expand {
+    display: none;
+    position: absolute;
+    left: -10px;
+    top: 10px;
+  }
+
+  .full-screen {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .piece-title {
+    outline: 0px;
+    border: 0px;
+    padding: 10px;
+    background: #FFF;
+    width: 100%;
+    font-size: 26px;
+    font-weight: bold;
+    color: #AAA;
+    &:hover {
+      background-color: #F8F8F8;
+    }
+    &:focus {
+      color: #000;
+    }
+  }
+  .piece-body {
+    border: 0px;
+    height: 100%;
+    overflow-y: auto;
+
+    padding: 10px;
+
+    font-family: 'Bitter', serif;
+    font-size: 18px;
+    line-height: 1.5em;
+
+    color: #CCC;
+    &:hover {
+      background-color: #F8F8F8;
+    }
+    &:focus {
+      background-color: #fff;
+      outline: 0px;
+    }
+    div {
+      color: #000;
+    }
+  }
+}
+.possed {
+  border: solid 1px #ddd;
+  padding: 10px;
+  font-family: 'Bitter', serif;
+  font-size: 18px;
+  line-height: 1.3em;
+  border: 0px;
+  height: 600px;
+  overflow-y: auto;
+  &:hover {
+    background-color: #F8F8F8;
+  }
+  &:focus {
+    background-color: #fff;
+  }
+}
+
+.stats {
+  color: #AAA;
+}

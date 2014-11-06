@@ -1,1 +1,29 @@
-ind
+<div class="row">
+  <div class="folder-container col-sm-3">
+    <div class="btn-group">
+      <a class="update btn btn-default" role="button" href="/"><i class="fa fa-home"></i></a>
+      <a class="save btn btn-default" role="button" href="<%= pieces_path %>"><i class="fa fa-file-o"></i></a>
+      <%= render partial: "pos" %>
+      <a class="folder-collapse btn btn-default"><i class="fa fa-angle-double-left"></i></a>
+    </div>
+    <br />
+    <br />
+    <%= render partial: "save", :locals => { :is_new => true } %>
+    <%= render partial: "folders" %>
+  </div>
+  <div class="writing-container col-sm-9">
+    <a class="folder-expand btn btn-link">+</a>
+    <a class="full-screen btn btn-link">full screen</a>
+    <input type="text" class="piece-title" placeholder="New Title">
+    <br />
+    <div class="editme editmain piece-body"><div><br /></div></div>
+
+    <div class="possed" data-toggle=".piece-body" style="display:none"></div>
+    <br />
+    <div class="row">
+      <div class="col-sm-12">
+        <span class="stats" data-for=".editmain"></span>
+      </div>
+    </div>
+  </div>
+</div>

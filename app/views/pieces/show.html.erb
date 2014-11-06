@@ -1,17 +1,29 @@
-<a class="pos-show btn btn-default" data-pos="jj" data-for=".piece-body" role="button">Adj</a>
-<a class="pos-show btn btn-default" data-pos="nn" data-for=".piece-body" role="button">Noun</a>
-<a class="pos-show btn btn-default" data-pos="det" data-for=".piece-body" role="button">Article</a>
-<a class="pos-show btn btn-default" data-pos="vbd" data-for=".piece-body" role="button">Verb</a>
-<a class="pos-show btn btn-default" data-pos="rb" data-for=".piece-body" role="button">Adv.</a>
-<a class="update btn btn-primary" role="button" data-path="<%= piece_path %>" data-title=".piece-title" data-body=".piece-body">Update</a>
+<div class="row">
+  <div class="folder-container col-sm-3">
+    <div class="btn-group">
+      <a class="update btn btn-default" role="button" href="/"><i class="fa fa-home"></i></a>
+      <a class="save btn btn-default" role="button" href="<%= pieces_path %>"><i class="fa fa-file-o"></i></a>
+      <%= render partial: "pos" %>
+      <a class="folder-collapse btn btn-default"><i class="fa fa-angle-double-left"></i></a>
+    </div>
+    <br />
+    <br />
+    <%= render partial: "save", :locals => { :is_new => false } %>
+    <%= render partial: "folders" %>
+  </div>
+  <div class="writing-container col-sm-9">
+    <a class="folder-expand btn btn-link">+</a>
+    <a class="full-screen btn btn-link">full screen</a>
+    <input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>">
+    <br />
+    <div class="editme editmain piece-body"><%= raw(@piece.body) %></div>
 
-<br />
-<br />
-
-<input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>">
-<br />
-<div class="editme editmain piece-body"><%= raw(@piece.body) %></div>
-
-<div class="possed" data-toggle=".piece-body"></div>
-
-<span class="stats" data-for=".editmain"></span>
+    <div class="possed" data-toggle=".piece-body" style="display:none"></div>
+    <br />
+    <div class="row">
+      <div class="col-sm-12">
+        <span class="stats" data-for=".editmain"></span>
+      </div>
+    </div>
+  </div>
+</div>

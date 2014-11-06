@@ -1,0 +1,14 @@
+<div class="input-group">
+  <% if is_new %>
+    <input type="text" class="piece-folders form-control" placeholder="folder1, folder2" value="">
+  <% else %>
+    <input type="text" class="piece-folders form-control" placeholder="folder1, folder2" value="<%= @piece.folder_list %>">
+  <% end %>
+  <span class="input-group-btn">
+    <% if is_new %>
+      <a class="save btn btn-default" role="button" data-path="<%= pieces_path %>" data-title=".piece-title" data-body=".piece-body"><i class="fa fa-floppy-o"></i></a>
+    <% else %>
+      <a class="update btn btn-default" role="button" data-path="<%= piece_path %>" data-title=".piece-title" data-body=".piece-body"><i class="fa fa-floppy-o"></i></a>
+    <% end %>
+  </span>
+</div>

@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @log = Log.where(:user_id => current_user.id)
+    if current_user
+      @log = Log.where(:user_id => current_user.id)
+    end
   end
 end

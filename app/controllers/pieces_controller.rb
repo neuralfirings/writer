@@ -1,5 +1,7 @@
 class PiecesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def new
   end
 
@@ -7,11 +9,13 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.update(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
     @piece.folder_list = params[:piece][:folders]
+    @piece.user_id = current_user.id
     @piece.save
     @piece.reload
 
     params[:piece][:piece_id] = @piece.id
     @log = Log.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space, :piece_id))
+    @log.user_id = current_user.id
     @log.save
 
     respond_to do | format |  
@@ -24,11 +28,13 @@ class PiecesController < ApplicationController
 
     @piece = Piece.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
     @piece.folder_list = params[:piece][:folders]
+    @piece.user_id = current_user.id
     @piece.save
     @piece.reload
 
     params[:piece][:piece_id] = @piece.id
     @log = Log.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space, :piece_id))
+    @log.user_id = current_user.id
     @log.save
 
     respond_to do | format |  
@@ -38,15 +44,20 @@ class PiecesController < ApplicationController
   end
 
   def show
-    @piece = Piece.find(params[:id])
-    @pieces = Piece.all
-    @folder = Piece.folder_counts
-    @log = Log.where(piece_id: @piece.id)
+    # @piece = Piece.find(params[:id])
+    @piece = Piece.where(:user_id => current_user.id, :id => params[:id]).first
+    @pieces = Piece.where(:user_id => current_user.id)
+    @folder = @pieces.folder_counts
+    if @piece == nil 
+      @error = "not your stuff"
+    else
+      @log = Log.where(piece_id: @piece.id)
+    end
   end
 
   def index
-    @pieces = Piece.all
-    @folder = Piece.folder_counts
+    @pieces = Piece.where(:user_id => current_user.id)
+    @folder = @pieces.folder_counts
   end
 
   def pos

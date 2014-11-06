@@ -3,7 +3,7 @@
     <a class="update btn btn-default" role="button" href="/"><i class="fa fa-home"></i></a>
     <a class="save btn btn-default" role="button" href="<%= pieces_path %>"><i class="fa fa-file-o"></i></a>
   </span>
-  <% if is_new %>
+  <% if is_new or @error == "not your stuff" %>
     <input type="text" class="piece-folders form-control" placeholder="this, that" value="">
   <% else %>
     <input type="text" class="piece-folders form-control" placeholder="this, that" value="<%= @piece.folder_list %>">

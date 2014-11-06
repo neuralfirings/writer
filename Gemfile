@@ -27,6 +27,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Users
+gem 'devise'
+
 # Tag parts of speech
 gem 'engtagger', '~> 0.2.0'
 

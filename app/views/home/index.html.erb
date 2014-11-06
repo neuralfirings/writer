@@ -1,20 +1,28 @@
 <div class="jumbotron" style="background: transparent; padding-top: 0px; margin-top: 0px;">
   <div class="container">
-    <h1>Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Write »</a></h1>
-    <% if @log %>
-      <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
-      <div class="chart-words-all-data">
-        <% @log.each do |l| %>
-          <div 
-            data-piece-id="<%= l.piece_id %>" 
-            data-words="<%= l.words %>" 
-            data-created="<%= l.created_at.strftime("%Y-%m-%d") %>"
-            data-created-display="<%= l.created_at.strftime("%b %d") %>"
-          ></div>
-        <% end %>
-      </div>
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      <h1>Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Write »</a></h1>
+      <% if @log %>
+        <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
+        <div class="chart-words-all-data">
+          <% @log.each do |l| %>
+            <div 
+              data-piece-id="<%= l.piece_id %>" 
+              data-words="<%= l.words %>" 
+              data-created="<%= l.created_at.strftime("%Y-%m-%d") %>"
+              data-created-display="<%= l.created_at.strftime("%b %d") %>"
+            ></div>
+          <% end %>
+        </div>
+      <% end %>
+      <br />
+      <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write »</a></p>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-default btn-lg'  %>
+      <%= link_to "Login", new_user_session_path, :class => 'btn btn-default btn-lg'  %>
     <% end %>
-    <br />
-    <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write »</a></p>
   </div>
 </div>

@@ -10,12 +10,12 @@ $(document).ready () ->
     $(".folder-container").hide()
     $(".folder-collapse").hide()
     $(".folder-expand").show()
-    $(".writing-container").removeClass("col-sm-9").addClass("col-sm-12")
+    $(".writing-container").removeClass("col-sm-8").addClass("col-sm-8 col-sm-offset-2")
   $(".folder-expand").click () -> 
     $(".folder-container").show()
     $(".folder-collapse").show()
     $(".folder-expand").hide()
-    $(".writing-container").removeClass("col-sm-12").addClass("col-sm-9")
+    $(".writing-container").removeClass("col-sm-8 col-sm-offset-2").addClass("col-sm-8")
 
 
   # Resizing writing space
@@ -57,7 +57,7 @@ $(document).ready () ->
   if $("#chart-words-all").length == 1
     console.log "all"
     pw = $("#chart-words-all").parent().width()
-    $("#chart-words-all").attr("width", pw).attr("height", Number(pw)*.6)
+    $("#chart-words-all").attr("width", pw).attr("height", Number(pw)*.5)
     ctx = document.getElementById("chart-words-all").getContext("2d")
     data = {
       labels: [],

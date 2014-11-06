@@ -8,18 +8,20 @@ $(document).ready () ->
 
   $(".folder-collapse").click () ->
     $(".folder-container").hide()
+    $(".folder-collapse").hide()
     $(".folder-expand").show()
     $(".writing-container").removeClass("col-sm-9").addClass("col-sm-12")
   $(".folder-expand").click () -> 
     $(".folder-container").show()
+    $(".folder-collapse").show()
     $(".folder-expand").hide()
     $(".writing-container").removeClass("col-sm-12").addClass("col-sm-9")
 
 
   # Resizing writing space
-  $(".piece-body").height($(window).height()-150 + "px")
+  $(".piece-body").height($(window).height()-135 + "px")
   $(window).resize () ->
-    $(".piece-body").height($(window).height()-150 + "px")
+    $(".piece-body").height($(window).height()-135 + "px")
 
   # Initiate le Chart
   # if $("#chart-words").length == 1

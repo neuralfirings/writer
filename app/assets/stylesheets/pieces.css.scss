@@ -14,7 +14,12 @@
     display: none;
     position: absolute;
     left: -10px;
-    top: 10px;
+    top: 0px;
+  }
+  .folder-collapse {
+    position: absolute;
+    left: -10px;
+    top: 0px;
   }
 
   .full-screen {
@@ -27,6 +32,7 @@
     outline: 0px;
     border: 0px;
     padding: 10px;
+    margin-top:-12px;
     background: #FFF;
     width: 100%;
     font-size: 26px;

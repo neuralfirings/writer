@@ -39,12 +39,13 @@ $(document).ready () ->
       auto_save = setInterval () ->
         update($(".update").data("path"), false)
         if Date.now() > last_activity_time + 1000 * 60 * auto_save_timeout
-          console.log "stop autosave"
+          console.log "stop autosave, timeout"
+          last_activity_time = 0
           clearInterval(auto_save)
           auto_save = undefined
       , 1000 * 60 * save_after_min
   $(".piece-body").focusout () ->
-    console.log "stop autosave"
+    console.log "stop autosave, focusout"
     clearInterval(auto_save)
     auto_save = undefined
 

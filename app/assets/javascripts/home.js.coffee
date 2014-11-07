@@ -25,7 +25,7 @@ $(document).ready () ->
 
   # Getting time spent writing & autosaving
   save_after_min = 1
-  auto_save_timeout = 5
+  auto_save_timeout = 2
   auto_save = undefined
   last_activity_time = 0
   

@@ -8,7 +8,11 @@ class PiecesController < ApplicationController
   def update
     @piece = Piece.find(params[:id])
     @piece.update(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
-    @piece.folder_list = params[:piece][:folders]
+    if params[:piece][:folders] == ""
+      @piece.folder_list = "Uncategorized"
+    else
+      @piece.folder_list = params[:piece][:folders]
+    end
     @piece.user_id = current_user.id
     @piece.save
     @piece.reload
@@ -27,7 +31,11 @@ class PiecesController < ApplicationController
     # render text: params.inspect
 
     @piece = Piece.new(params.require(:piece).permit(:title, :body, :words, :chars, :chars_no_space))
-    @piece.folder_list = params[:piece][:folders]
+    if params[:piece][:folders] == ""
+      @piece.folder_list = "Uncategorized"
+    else
+      @piece.folder_list = params[:piece][:folders]
+    end
     @piece.user_id = current_user.id
     @piece.save
     @piece.reload

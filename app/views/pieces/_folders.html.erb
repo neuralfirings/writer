@@ -12,12 +12,32 @@
       <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
         <ul class="list-group">
           <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
-            <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+            <% if p.title == "" %>
+              <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
+            <% else %>
+              <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>
     </div>
   <% end %>
+  <!-- no folder -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="orphan-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
+          Orphan Pages
+        </a>
+      </h4>
+    </div>
+    <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
+      <ul class="list-group">
+        <li class="list-group-item">Test</li>
+        <li class="list-group-item">Test</li>
+      </ul>
+    </div>
+  </div>
 </div>
 <% if @log %>
   <strong>Word Count</strong>

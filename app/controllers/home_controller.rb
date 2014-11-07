@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if current_user
-      @log = Log.where(:user_id => current_user.id)
+      @logs = Log.where(:user_id => current_user.id).order("created_at ASC")
     end
   end
 end

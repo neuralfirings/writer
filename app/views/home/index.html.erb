@@ -5,10 +5,10 @@
       <%= link_to 'Edit profile', edit_user_registration_path %> |
       <%= link_to "Logout", destroy_user_session_path, method: :delete %>
       <h1>Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Write »</a></h1>
-      <% if @log %>
+      <% if @logs %>
         <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
         <div class="chart-words-all-data">
-          <% @log.each do |l| %>
+          <% @logs.each do |l| %>
             <div 
               data-piece-id="<%= l.piece_id %>" 
               data-words="<%= l.words %>" 
@@ -21,8 +21,10 @@
       <br />
       <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write »</a></p>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-default btn-lg'  %>
-      <%= link_to "Login", new_user_session_path, :class => 'btn btn-default btn-lg'  %>
+      <div style="margin: 100px auto; width: 180px;">
+        <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-default btn-lg'  %>
+        <%= link_to "Login", new_user_session_path, :class => 'btn btn-default btn-lg'  %>
+      </div>
     <% end %>
   </div>
 </div>

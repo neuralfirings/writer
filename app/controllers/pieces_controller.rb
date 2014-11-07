@@ -59,7 +59,7 @@ class PiecesController < ApplicationController
     if @piece == nil 
       @error = "not your stuff"
     else
-      @log = Log.where(piece_id: @piece.id)
+      @logs = Log.where(piece_id: @piece.id).order("created_at ASC")
     end
   end
 

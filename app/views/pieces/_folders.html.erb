@@ -46,11 +46,11 @@
     </div>
   </div>
 </div>
-<% if @log %>
+<% if @logs %>
   <strong>Word Count</strong>
   <canvas id="chart-words-all" width="" height="200px" style="width: 100%"></canvas>
   <div class="chart-words-all-data">
-    <% @log.each do |l| %>
+    <% @logs.each do |l| %>
       <div 
         data-piece-id="<%= l.piece_id %>" 
         data-words="<%= l.words %>" 

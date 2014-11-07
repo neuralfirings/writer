@@ -9,7 +9,7 @@
       <h1 style="color: #AAA">Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Start Writing <i class="fa fa-arrow-circle-right"></i></a></h1>
       <% if @logs %>
         <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
-        <div class="chart-words-all-data">
+        <div class="chart-words-all-data" data-cumulative="no">
           <% @logs.each do |l| %>
             <div 
               data-piece-id="<%= l.piece_id %>" 

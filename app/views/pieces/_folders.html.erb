@@ -25,26 +25,28 @@
     <% end %>
   <% end %>
   <!-- no folder -->
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="orphan-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
-          Uncategorized
-        </a>
-      </h4>
-    </div>
-    <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
-      <ul class="list-group">
-        <% @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).each do |p| %>
-          <% if p.title == "" %>
-            <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
-          <% else %>
-            <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+  <% if @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).length > 0 %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="orphan-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
+            Uncategorized
+          </a>
+        </h4>
+      </div>
+      <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
+        <ul class="list-group">
+          <% @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).each do |p| %>
+            <% if p.title == "" %>
+              <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
+            <% else %>
+              <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 <% if @logs %>
   <strong>Word Count</strong>

@@ -1,10 +1,12 @@
 <div class="jumbotron" style="background: transparent; padding-top: 0px; margin-top: 0px;">
   <div class="container">
     <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-      <h1>Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Write »</a></h1>
+      <div class="user-heading" style="color: #AAA">
+        Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      </div>
+      <h1 style="color: #AAA">Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Start Writing <i class="fa fa-arrow-circle-right"></i></a></h1>
       <% if @logs %>
         <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
         <div class="chart-words-all-data">
@@ -19,7 +21,7 @@
         </div>
       <% end %>
       <br />
-      <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write »</a></p>
+      <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write Now <i class="fa fa-arrow-circle-right"></i></a></p>
     <% else %>
       <div style="margin: 100px auto; width: 180px;">
         <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-default btn-lg'  %>

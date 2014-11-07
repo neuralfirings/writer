@@ -81,10 +81,18 @@ $(document).ready () ->
 
   # All Words
   if $("#chart-words-all").length == 1
+    path = $("#chart-words-all").data("path")
+    _cumulative = $("#chart-words-all").data("cumulative")
+    dates = {} # dates --> piece --> info
+    pieces = {} # pieces --> words at the end of the day
+    window.d = dates
+    window.p = pieces
+
+    # Initiate the chart
     pw = $("#chart-words-all").parent().width()
     $("#chart-words-all").attr("width", pw).attr("height", Number(pw)*.5)
     ctx = document.getElementById("chart-words-all").getContext("2d")
-    data = {
+    chart_data = {
       labels: [],
       datasets: [
         {
@@ -99,43 +107,64 @@ $(document).ready () ->
         }
       ]
     };
+    chart_data.datasets[0].data.push 0
+    chart_data.labels.push ""
 
-    wordcounts = {}
+    if $("#chart-words-all").data("piece-id") != undefined
+      _data = "piece_id=" + $("#chart-words-all").data("piece-id")
+    else 
+      _data = ""
 
-    $(".chart-words-all-data").find("div").each () ->
-      piece_id = $(this).data("piece-id")
-      word_count = $(this).data("words")
-      created_date = $(this).data("created")
-
-      if wordcounts[created_date] == undefined
-        wordcounts[created_date] = []
-      wordcounts[created_date][piece_id] = word_count
-
-    # start
-    data.datasets[0].data.push 0
-    data.labels.push ""
-
-    window.wc = wordcounts
-    piece_wordcount_holder = []
-    for datename, date of wordcounts
-      total_words = 0
-      for piece_id, words of date
-        if words != undefined and words != NaN
-          if $(".chart-words-all-data").data("cumulative") == "no"
-            if piece_wordcount_holder[piece_id] == undefined
-              piece_wordcount_holder[piece_id] = Number(words)
-            else  
-              # console.log "hello",piece_id, Number(words), piece_wordcount_holder[piece_id]
-              old_piece_word = piece_wordcount_holder[piece_id]
-              piece_wordcount_holder[piece_id] = Number(words)
-              words = Math.max(0, Number(words) - old_piece_word)
-          total_words += Number(words)
-      data.datasets[0].data.push total_words
-      data.labels.push datename
-    chart_words = new Chart(ctx).Line(data);
-    window.cw = chart_words
+    $.ajax({
+      url: path + ".json",
+      type: "get",
+      data: _data,
+      success: (data) ->
+        # sort first by pieces, note: logs should already by sorted by created asc
+        for d in data
+          if pieces[d.piece_id] == undefined
+            pieces[d.piece_id] = {}
+            pieces[d.piece_id].yesterdays_words = 0
 
 
+          if pieces[d.piece_id][d.created] == undefined
+            pieces[d.piece_id][d.created] = {}
+          if pieces[d.piece_id].date_marker != undefined
+            if pieces[d.piece_id].date_marker != d.created # it's a new day!
+              yesterday = pieces[d.piece_id].date_marker
+              pieces[d.piece_id].yesterdays_words = pieces[d.piece_id][yesterday].word_count
+              pieces[d.piece_id].date_marker = d.created
+          
+          pieces[d.piece_id][d.created].word_count = d.words
+          pieces[d.piece_id][d.created].word_delta = Math.max(0, d.words - pieces[d.piece_id].yesterdays_words)
+          pieces[d.piece_id].date_marker = d.created
+
+        # sort first by dates
+        for d in data
+          if dates[d.created] == undefined
+            dates[d.created] = { word_count: 0, word_delta: 0 }
+            dates[d.created].created_display = d.created_display
+          if pieces[d.piece_id][d.created].counted == undefined
+            # if d.created == "2014-11-07"
+            #   console.log d.piece_id, d.created, pieces[d.piece_id][d.created].word_delta, dates[d.created].word_delta
+            dates[d.created].word_count += pieces[d.piece_id][d.created].word_count # JUST for pieces worked on that day though, not a very useful number
+            dates[d.created].word_delta += pieces[d.piece_id][d.created].word_delta
+            pieces[d.piece_id][d.created].counted = true
+          # dates[d.created].created_display = d.created_display
+
+        # add values to chart
+        for key, value of dates
+          if _cumulative == "no"
+            chart_data.datasets[0].data.push value.word_delta
+          else 
+            chart_data.datasets[0].data.push value.word_count
+          chart_data.labels.push value.created_display
+        chart_words = new Chart(ctx).Line(chart_data);
+
+      error: (jqXHR, textStatus, errorThrown) ->
+        console.log "error", jqXHR, textStatus, errorThrown
+
+    })
 
   # Go Full Screen
   $(".full-screen").hide()
@@ -209,30 +238,7 @@ $(document).ready () ->
 
   $(".update").click () ->
     path = $(this).data "path"
-    $.update(path, true)
-    # path = $(this).data "path"
-    # bodydiv = $(this).data "body"
-    # stats = getWordCount($(bodydiv))
-    # data = 
-    #   piece:
-    #     title: $($(this).data "title").val()
-    #     body: $(bodydiv).html()
-    #     words: stats.words
-    #     chars: stats.chars
-    #     chars_no_space: stats.chars_no_space
-    #     folders: $(".piece-folders").val()
-    # console.log data, path
-
-    # $.ajax({
-    #   url: path + ".json", 
-    #   type: "put", 
-    #   data: data,
-    #   success: (data) -> 
-    #     console.log "saved"
-    #     window.location.href = path 
-    #   error: (jqXHR, textStatus, errorThrown) ->
-    #     console.log "error", jqXHR, textStatus, errorThrown
-    # })
+    update(path, true)
 
 
   # Show Parts of Speech

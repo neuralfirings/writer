@@ -50,15 +50,9 @@
 </div>
 <% if @logs %>
   <strong>Word Count</strong>
-  <canvas id="chart-words-all" width="" height="200px" style="width: 100%"></canvas>
-  <div class="chart-words-all-data" data-cumulative="yes">
-    <% @logs.each do |l| %>
-      <div 
-        data-piece-id="<%= l.piece_id %>" 
-        data-words="<%= l.words %>" 
-        data-created="<%= l.created_at.strftime("%Y-%m-%d") %>"
-        data-created-display="<%= l.created_at.strftime("%b %d") %>"
-      ></div>
-    <% end %>
-  </div>
+  <canvas id="chart-words-all" width="" height="200px" style="width: 100%"
+    data-cumulative="yes" 
+    data-piece-id="<%= @piece.id %>" 
+    data-path="<%= get_logs_pieces_path %>" 
+  ></canvas>
 <% end %>

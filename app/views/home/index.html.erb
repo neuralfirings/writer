@@ -8,17 +8,10 @@
       </div>
       <h1 style="color: #AAA">Words Per Day <a class="btn btn-primary btn-lg" href="<%= pieces_path %>" role="button">Start Writing <i class="fa fa-arrow-circle-right"></i></a></h1>
       <% if @logs %>
-        <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"></canvas>
-        <div class="chart-words-all-data" data-cumulative="no">
-          <% @logs.each do |l| %>
-            <div 
-              data-piece-id="<%= l.piece_id %>" 
-              data-words="<%= l.words %>" 
-              data-created="<%= l.created_at.strftime("%Y-%m-%d") %>"
-              data-created-display="<%= l.created_at.strftime("%b %d") %>"
-            ></div>
-          <% end %>
-        </div>
+        <canvas id="chart-words-all" width="600px" height="400px" style="width: 100%"
+          data-cumulative="no" 
+          data-path="<%= get_logs_pieces_path %>" 
+        ></canvas>
       <% end %>
       <br />
       <p><a class="btn btn-primary btn-block btn-lg" href="<%= pieces_path %>" role="button">Write Now <i class="fa fa-arrow-circle-right"></i></a></p>

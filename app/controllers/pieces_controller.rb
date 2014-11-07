@@ -68,6 +68,31 @@ class PiecesController < ApplicationController
     @folder = @pieces.folder_counts
   end
 
+  def get_logs
+    if current_user
+      if params[:piece_id]
+        @logs = Log.where(:piece_id => params[:piece_id], :user_id => current_user.id).order("created_at ASC")
+      else
+        @logs = Log.where(:user_id => current_user.id).order("created_at ASC")
+      end
+      
+      @logs.each do |l|
+        l.created = l.created_at.strftime("%Y-%m-%d")
+        l.created_display = l.created_at.strftime("%b %d")
+      end
+
+      respond_to do | format |
+        format.html { render :html => "" }
+        format.json { render :json => @logs, methods: [:created, :created_display] }
+      end
+    else
+      respond_to do | format |
+        format.html { render :html => "loggedout" }
+        format.json { render :json => "loggedout" }
+      end
+    end
+  end
+
   def pos
     text = params[:text]
 

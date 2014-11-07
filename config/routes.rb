@@ -20,6 +20,7 @@ Writer::Application.routes.draw do
 
   resources :pieces do
     get :pos, :on => :collection
+    get :get_logs, :on => :collection
   end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

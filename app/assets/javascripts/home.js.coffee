@@ -149,11 +149,13 @@ $(document).ready () ->
             pieces[d.piece_id] = {}
             pieces[d.piece_id].yesterdays_words = 0
             pieces[d.piece_id].last_timestamp = 0
-            # pieces[d.piece_id].days_seconds = 0
+            # pieces[d.piece_id].total_seconds = 0
 
 
           if pieces[d.piece_id][d.created] == undefined
             pieces[d.piece_id][d.created] = {}
+            pieces[d.piece_id][d.created].total_seconds = 0
+
           
           if pieces[d.piece_id].date_marker != undefined 
             if pieces[d.piece_id].date_marker != d.created # it's a new day!
@@ -164,8 +166,10 @@ $(document).ready () ->
 
           if pieces[d.piece_id].last_timestamp == 0
             pieces[d.piece_id].last_timestamp = d.timestamp
-          if d.timestamp - pieces[d.piece_id].last_timestamp < auto_save_timeout * 60 # two minutes
-            pieces[d.piece_id][d.created].total_seconds += d.timestamp - pieces[d.piece_id].last_timestamp 
+
+          elapsed_seconds = d.timestamp - pieces[d.piece_id].last_timestamp 
+          if elapsed_seconds < auto_save_timeout * 60 # assume there's a timeout
+            pieces[d.piece_id][d.created].total_seconds += elapsed_seconds
           pieces[d.piece_id].last_timestamp = d.timestamp
 
           pieces[d.piece_id][d.created].word_count = d.words
@@ -202,7 +206,7 @@ $(document).ready () ->
           else if _show == "wc_per_day"
             chart_data.datasets[0].data.push value.word_delta
           else if _show == "minutes"
-            chart_data.datasets[0].data.push Math.round(value.total_seconds/60 * 10)/10 # minutes
+            chart_data.datasets[0].data.push Math.ceil(value.total_seconds/60) # minutes
           else if _show == "minutes_cumulative"
             minutes_total += Math.round(value.total_seconds/60 * 10)/10
             chart_data.datasets[0].data.push minutes_total # minutes

@@ -79,11 +79,12 @@ class PiecesController < ApplicationController
       @logs.each do |l|
         l.created = l.created_at.strftime("%Y-%m-%d")
         l.created_display = l.created_at.strftime("%b %d")
+        l.timestamp = l.created_at.to_time.to_i
       end
 
       respond_to do | format |
         format.html { render :html => "" }
-        format.json { render :json => @logs, methods: [:created, :created_display] }
+        format.json { render :json => @logs, methods: [:created, :created_display, :timestamp] }
       end
     else
       respond_to do | format |

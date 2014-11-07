@@ -49,10 +49,37 @@
   <% end %>
 </div>
 <% if @logs %>
-  <strong>Word Count</strong>
-  <canvas id="chart-words-all" width="" height="200px" style="width: 100%"
-    data-cumulative="yes" 
+
+  <% if false %>
+    <strong>Word Count per Day</strong>
+    <canvas class="chart-words" id="chart-words-pd" width="" height="200px" style="width: 100%"
+      data-show="wc_per_day" 
+      data-piece-id="<%= @piece.id %>" 
+      data-path="<%= get_logs_pieces_path %>" 
+    ></canvas>
+
+    <strong>Total Time Spent</strong>
+    <canvas class="chart-words" id="chart-time-all" width="" height="200px" style="width: 100%"
+      data-show="minutes_cumulative" 
+      data-piece-id="<%= @piece.id %>" 
+      data-path="<%= get_logs_pieces_path %>" 
+    ></canvas>
+  <% end %>
+
+
+  <strong>Total Word Count</strong>
+  <canvas class="chart-words" id="chart-words" width="" height="200px" style="width: 100%"
+    data-show="wc_cumulative" 
     data-piece-id="<%= @piece.id %>" 
     data-path="<%= get_logs_pieces_path %>" 
   ></canvas>
+
+
+  <strong>Time Spent Per Day</strong>
+  <canvas class="chart-words" id="chart-time" width="" height="200px" style="width: 100%"
+    data-show="minutes" 
+    data-piece-id="<%= @piece.id %>" 
+    data-path="<%= get_logs_pieces_path %>" 
+  ></canvas>
+
 <% end %>

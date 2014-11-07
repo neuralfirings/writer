@@ -1,13 +1,13 @@
 <% if user_signed_in? %>
   <div class="row">
-    <div class="folder-container col-sm-3">
+    <div class="folder-container col-md-3">
       <%= render partial: "save", :locals => { :is_new => false } %>
       <%= render partial: "folders" %>
     </div>
     <% if @error == "not your stuff" %>
       <h1>This is not the page you're looking for</h1>
     <% else %>
-      <div class="writing-container col-sm-9">
+      <div class="writing-container col-md-9">
         <a class="folder-expand btn btn-link"><i class="fa fa-angle-double-right"></i></a>
         <a class="folder-collapse btn btn-link"><i class="fa fa-angle-double-left"></i></a>
         <a class="full-screen btn btn-link">full screen</a>
@@ -18,7 +18,7 @@
         <div class="possed" data-toggle=".piece-body" style="display:none"></div>
         <br />
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-md-12">
             <span class="stats" data-for=".editmain"></span>
           </div>
         </div>

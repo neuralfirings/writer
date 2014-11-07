@@ -10,12 +10,12 @@ $(document).ready () ->
     $(".folder-container").hide()
     $(".folder-collapse").hide()
     $(".folder-expand").show()
-    $(".writing-container").removeClass("col-sm-8").addClass("col-sm-8 col-sm-offset-2")
+    $(".writing-container").removeClass("col-md-8").addClass("col-md-8 col-md-offset-2")
   $(".folder-expand").click () -> 
     $(".folder-container").show()
     $(".folder-collapse").show()
     $(".folder-expand").hide()
-    $(".writing-container").removeClass("col-sm-8 col-sm-offset-2").addClass("col-sm-8")
+    $(".writing-container").removeClass("col-md-8 col-md-offset-2").addClass("col-md-8")
 
 
   # Resizing writing space

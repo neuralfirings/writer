@@ -90,17 +90,23 @@ $(document).ready () ->
     data.datasets[0].data.push 0
     data.labels.push ""
 
+    window.wc = wordcounts
     piece_wordcount_holder = []
     for datename, date of wordcounts
       total_words = 0
       for piece_id, words of date
         if words != undefined and words != NaN
           if $(".chart-words-all-data").data("cumulative") == "no"
+            console.log "hi"
             if piece_wordcount_holder[piece_id] == undefined
               piece_wordcount_holder[piece_id] = Number(words)
             else  
-              words = Math.max(0, Number(words) - piece_wordcount_holder[piece_id])
+              # console.log "hello",piece_id, Number(words), piece_wordcount_holder[piece_id]
+              old_piece_word = piece_wordcount_holder[piece_id]
               piece_wordcount_holder[piece_id] = Number(words)
+              words = Math.max(0, Number(words) - old_piece_word)
+          if piece_id == "20"
+            console.log "add", Number(words)
           total_words += Number(words)
       data.datasets[0].data.push total_words
       data.labels.push datename

@@ -51,7 +51,7 @@
 <% if @logs %>
   <strong>Word Count</strong>
   <canvas id="chart-words-all" width="" height="200px" style="width: 100%"></canvas>
-  <div class="chart-words-all-data">
+  <div class="chart-words-all-data" data-cumulative="yes">
     <% @logs.each do |l| %>
       <div 
         data-piece-id="<%= l.piece_id %>" 

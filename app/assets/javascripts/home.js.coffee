@@ -23,6 +23,31 @@ $(document).ready () ->
   $(window).resize () ->
     $(".piece-body").height($(window).height()-135 + "px")
 
+  # Getting time spent writing & autosaving
+  save_after_min = 1
+  auto_save_timeout = 5
+  auto_save = undefined
+  last_activity_time = 0
+  
+  # $(".piece-body").click () ->
+  #   update($(".update").data("path"), false)
+  $(".piece-body").keyup () ->
+    last_activity_time = Date.now()
+    if auto_save == undefined
+      console.log "kick off autosave"
+      update($(".update").data("path"), false)
+      auto_save = setInterval () ->
+        update($(".update").data("path"), false)
+        if Date.now() > last_activity_time + 1000 * 60 * auto_save_timeout
+          console.log "stop autosave"
+          clearInterval(auto_save)
+          auto_save = undefined
+      , 1000 * 60 * save_after_min
+  $(".piece-body").focusout () ->
+    console.log "stop autosave"
+    clearInterval(auto_save)
+    auto_save = undefined
+
   # Initiate le Chart
   # if $("#chart-words").length == 1
   #   console.log "not all"
@@ -55,7 +80,6 @@ $(document).ready () ->
 
   # All Words
   if $("#chart-words-all").length == 1
-    console.log "all"
     pw = $("#chart-words-all").parent().width()
     $("#chart-words-all").attr("width", pw).attr("height", Number(pw)*.5)
     ctx = document.getElementById("chart-words-all").getContext("2d")
@@ -97,7 +121,6 @@ $(document).ready () ->
       for piece_id, words of date
         if words != undefined and words != NaN
           if $(".chart-words-all-data").data("cumulative") == "no"
-            console.log "hi"
             if piece_wordcount_holder[piece_id] == undefined
               piece_wordcount_holder[piece_id] = Number(words)
             else  
@@ -105,8 +128,6 @@ $(document).ready () ->
               old_piece_word = piece_wordcount_holder[piece_id]
               piece_wordcount_holder[piece_id] = Number(words)
               words = Math.max(0, Number(words) - old_piece_word)
-          if piece_id == "20"
-            console.log "add", Number(words)
           total_words += Number(words)
       data.datasets[0].data.push total_words
       data.labels.push datename
@@ -160,30 +181,57 @@ $(document).ready () ->
         console.log "error", jqXHR, textStatus, errorThrown
     })
 
-  $(".update").click () ->
-    path = $(this).data "path"
-    bodydiv = $(this).data "body"
+  update = (path, refresh) ->
+    bodydiv = $(".update").data "body"
     stats = getWordCount($(bodydiv))
+    _refresh = refresh
     data = 
       piece:
-        title: $($(this).data "title").val()
+        title: $(".piece-title").val()
         body: $(bodydiv).html()
         words: stats.words
         chars: stats.chars
         chars_no_space: stats.chars_no_space
         folders: $(".piece-folders").val()
-    console.log data, path
 
     $.ajax({
       url: path + ".json", 
       type: "put", 
       data: data,
       success: (data) -> 
-        console.log "success", data, path
-        window.location.href = path 
+        console.log "saved", _refresh
+        if _refresh
+          window.location.href = path 
       error: (jqXHR, textStatus, errorThrown) ->
         console.log "error", jqXHR, textStatus, errorThrown
     })
+
+  $(".update").click () ->
+    path = $(this).data "path"
+    $.update(path, true)
+    # path = $(this).data "path"
+    # bodydiv = $(this).data "body"
+    # stats = getWordCount($(bodydiv))
+    # data = 
+    #   piece:
+    #     title: $($(this).data "title").val()
+    #     body: $(bodydiv).html()
+    #     words: stats.words
+    #     chars: stats.chars
+    #     chars_no_space: stats.chars_no_space
+    #     folders: $(".piece-folders").val()
+    # console.log data, path
+
+    # $.ajax({
+    #   url: path + ".json", 
+    #   type: "put", 
+    #   data: data,
+    #   success: (data) -> 
+    #     console.log "saved"
+    #     window.location.href = path 
+    #   error: (jqXHR, textStatus, errorThrown) ->
+    #     console.log "error", jqXHR, textStatus, errorThrown
+    # })
 
 
   # Show Parts of Speech

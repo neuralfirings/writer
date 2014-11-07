@@ -168,7 +168,8 @@ $(document).ready () ->
       type: "put", 
       data: data,
       success: (data) -> 
-        console.log "success", data
+        console.log "success", data, path
+        window.location.href = path 
       error: (jqXHR, textStatus, errorThrown) ->
         console.log "error", jqXHR, textStatus, errorThrown
     })

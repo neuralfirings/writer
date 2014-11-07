@@ -1,40 +1,47 @@
 <br />
 <div class="panel-group" id="folder" role="tablist" aria-multiselectable="false">
   <% @folder.each do |f| %>
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
-            <%= f.name %>
-          </a>
-        </h4>
-      </div>
-      <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
-        <ul class="list-group">
-          <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
-            <% if p.title == "" %>
-              <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
-            <% else %>
-              <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+    <% if f.name != "Uncategorized" %>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
+              <%= f.name %>
+            </a>
+          </h4>
+        </div>
+        <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+          <ul class="list-group">
+            <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
+              <% if p.title == "" %>
+                <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
+              <% else %>
+                <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
   <!-- no folder -->
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="orphan-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
-          Orphan Pages
+          Uncategorized
         </a>
       </h4>
     </div>
     <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
       <ul class="list-group">
-        <li class="list-group-item">Test</li>
-        <li class="list-group-item">Test</li>
+        <% @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).each do |p| %>
+          <% if p.title == "" %>
+            <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
+          <% else %>
+            <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
+          <% end %>
+        <% end %>
       </ul>
     </div>
   </div>

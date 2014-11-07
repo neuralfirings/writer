@@ -258,9 +258,19 @@ $(document).ready () ->
         console.log "error", jqXHR, textStatus, errorThrown
     })
 
+  document.addEventListener "keydown", (e) ->
+    if e.keyCode is 83 and ((if navigator.platform.match("Mac") then e.metaKey else e.ctrlKey))
+      e.preventDefault()
+      update($(".update").data("path"), false)
+      console.log "save"
+  , false
+
   update = (path, refresh) ->
     bodydiv = $(".update").data "body"
     $(".update").css("background", "#FBFBFB")
+    setTimeout () ->
+      $(".update").css("background", "#FFFFFF")
+    , 500
     stats = getWordCount($(bodydiv))
     _refresh = refresh
     data = 
@@ -278,7 +288,6 @@ $(document).ready () ->
       data: data,
       success: (data) -> 
         console.log "saved", _refresh
-        $(".update").css("background", "#FFFFFF")
         if _refresh
           window.location.href = path 
       error: (jqXHR, textStatus, errorThrown) ->

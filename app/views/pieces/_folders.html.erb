@@ -10,7 +10,7 @@
             </a>
           </h4>
         </div>
-        <div id="folder-<%= f.name %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+        <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
           <ul class="list-group">
             <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
               <% if p.title == "" %>

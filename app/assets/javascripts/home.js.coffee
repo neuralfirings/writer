@@ -19,16 +19,17 @@ $(document).ready () ->
 
   # Reordering folders
   $.ajax({
-    url: $("#folder").data("path-get"),
+    url: $("#folder").data("path-get") + ".json",
     type: "get",
     success: (data) ->
-      for i, folder of data.folder_order
-        if folder.folder_id != undefined
-          $("#folder").find(".panel[data-folderid='#{folder.folder_id}']").appendTo($("#folder"))
-        for j, piece_id of folder.piece_order
-          folderdiv = $("#folder").find(".panel[data-folderid='#{folder.folder_id}']")
-          piecegroupdiv = folderdiv.find(".list-group")
-          folderdiv.find(".list-group-item[data-pieceid='#{piece_id}']").appendTo piecegroupdiv
+      if data.folder_order != "none"
+        for i, folder of data.folder_order
+          if folder.folder_id != undefined
+            $("#folder").find(".panel[data-folderid='#{folder.folder_id}']").appendTo($("#folder"))
+          for j, piece_id of folder.piece_order
+            folderdiv = $("#folder").find(".panel[data-folderid='#{folder.folder_id}']")
+            piecegroupdiv = folderdiv.find(".list-group")
+            folderdiv.find(".list-group-item[data-pieceid='#{piece_id}']").appendTo piecegroupdiv
       $("#folder").show()
   })
 

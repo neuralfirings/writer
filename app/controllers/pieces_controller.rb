@@ -70,8 +70,14 @@ class PiecesController < ApplicationController
 
   def get_folder_order 
     @user = User.find(current_user.id)
-    respond_to do | format |  
-      format.json { render :json => {folder_order: JSON.parse(@user.folderstructure) } }
+    if @user.folderstructure != nil
+      respond_to do | format |  
+        format.json { render :json => {folder_order: JSON.parse(@user.folderstructure) } }
+      end
+    else
+      respond_to do | format |  
+        format.json { render :json => {folder_order: "none" } }
+      end
     end
   end
 

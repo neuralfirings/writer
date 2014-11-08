@@ -1,93 +1,99 @@
 <br />
-<div class="panel-group" id="folder" data-path-get="<%= get_folder_order_pieces_path %>" data-path="<%= update_folder_order_pieces_path %>" role="tablist" aria-multiselectable="false" style="display:none">
-  <% @folder.each do |f| %>
-    <% if f.name != "Uncategorized" %>
-      <div class="panel panel-default" data-foldername="<%= f.name %>" data-folderid="<%= f.id %>" >
-        <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
+
+<div id="sidenav" class="navbar-collapse collapse">
+  <div class="panel-group" id="folder" data-path-get="<%= get_folder_order_pieces_path %>" data-path="<%= update_folder_order_pieces_path %>" role="tablist" aria-multiselectable="false" style="display:none">
+    <% @folder.each do |f| %>
+      <% if f.name != "Uncategorized" %>
+        <div class="panel panel-default" data-foldername="<%= f.name %>" data-folderid="<%= f.id %>" >
+          <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
+                <%= f.name %>
+              </a>
+            </h4>
+          </div>
+          <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+            <ul class="list-group">
+              <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
+                <% if p.title == "" %>
+                  <li class="list-group-item" 
+                    data-pieceid="0" 
+                    data-piecetitle="n/a" >
+                    <%= link_to "Untitled", piece_path(p) %>
+                  </li>
+                <% else %>
+                  <li class="list-group-item" 
+                    data-pieceid="<%= p.id %>" 
+                    data-piecetitle="<%= p.title %>" >
+                    <%= link_to p.title, piece_path(p) %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <!-- no folder -->
+    <% if @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).length > 0 %>
+      <div class="panel panel-default" data-folderid="0">
+        <div class="panel-heading" role="tab" id="orphan-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
-              <%= f.name %>
+            <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
+              Uncategorized
             </a>
           </h4>
         </div>
-        <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+        <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
           <ul class="list-group">
-            <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
+            <% @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).each do |p| %>
               <% if p.title == "" %>
-                <li class="list-group-item" 
-                  data-pieceid="0" 
-                  data-piecetitle="n/a" >
-                  <%= link_to "Untitled", piece_path(p) %>
-                </li>
+                <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
               <% else %>
-                <li class="list-group-item" 
-                  data-pieceid="<%= p.id %>" 
-                  data-piecetitle="<%= p.title %>" >
-                  <%= link_to p.title, piece_path(p) %>
-                </li>
+                <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
               <% end %>
             <% end %>
           </ul>
         </div>
       </div>
     <% end %>
-  <% end %>
-  <!-- no folder -->
-  <% if @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).length > 0 %>
-    <div class="panel panel-default" data-folderid="0">
-      <div class="panel-heading" role="tab" id="orphan-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#folder" href="#orphan-docs" aria-expanded="false" aria-controls="orphan-docs">
-            Uncategorized
-          </a>
-        </h4>
+  </div>
+  <% if @logs %>
+
+    <% if false %>
+      <div class="row">
+        <div class="col-md-3">
+          <label>Word Count per Day</label>
+          <canvas class="chart-words" id="chart-words-pd" width="" height="200px" style="width: 100%"
+            data-show="wc_per_day" 
+            data-piece-id="<%= @piece.id %>" 
+            data-path="<%= get_logs_pieces_path %>" 
+          ></canvas>
+        </div>
       </div>
-      <div id="orphan-docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="orphan-heading">
-        <ul class="list-group">
-          <% @pieces.tagged_with(["Uncategorized"], :on => :folder, :any => true).each do |p| %>
-            <% if p.title == "" %>
-              <li class="list-group-item"><%= link_to "Untitled", piece_path(p) %></li>
-            <% else %>
-              <li class="list-group-item"><%= link_to p.title, piece_path(p) %></li>
-            <% end %>
-          <% end %>
-        </ul>
+      <div class="row">
+        <div class="col-md-3">
+          <label>Total Time Spent</label>
+          <canvas class="chart-words" id="chart-time-all" width="" height="200px" style="width: 100%"
+            data-show="minutes_cumulative" 
+            data-piece-id="<%= @piece.id %>" 
+            data-path="<%= get_logs_pieces_path %>" 
+          ></canvas>
+        </div>
       </div>
-    </div>
+    <% end %>
+
+    <label>Total Word Count</label><br />
+    <canvas class="chart-words" id="chart-words" width="" height="200px" style="width: 100%"
+      data-show="wc_cumulative" 
+      data-piece-id="<%= @piece.id %>" 
+      data-path="<%= get_logs_pieces_path %>" 
+    ></canvas><br />
+    <label>Time Spent Per Day</label><br />
+    <canvas class="chart-words" id="chart-time" width="" height="200px" style="width: 100%"
+      data-show="minutes" 
+      data-piece-id="<%= @piece.id %>" 
+      data-path="<%= get_logs_pieces_path %>" 
+    ></canvas>
   <% end %>
 </div>
-<% if @logs %>
-
-  <% if false %>
-    <strong>Word Count per Day</strong>
-    <canvas class="chart-words" id="chart-words-pd" width="" height="200px" style="width: 100%"
-      data-show="wc_per_day" 
-      data-piece-id="<%= @piece.id %>" 
-      data-path="<%= get_logs_pieces_path %>" 
-    ></canvas>
-
-    <strong>Total Time Spent</strong>
-    <canvas class="chart-words" id="chart-time-all" width="" height="200px" style="width: 100%"
-      data-show="minutes_cumulative" 
-      data-piece-id="<%= @piece.id %>" 
-      data-path="<%= get_logs_pieces_path %>" 
-    ></canvas>
-  <% end %>
-
-
-  <strong>Total Word Count</strong>
-  <canvas class="chart-words" id="chart-words" width="" height="200px" style="width: 100%"
-    data-show="wc_cumulative" 
-    data-piece-id="<%= @piece.id %>" 
-    data-path="<%= get_logs_pieces_path %>" 
-  ></canvas>
-
-
-  <strong>Time Spent Per Day</strong>
-  <canvas class="chart-words" id="chart-time" width="" height="200px" style="width: 100%"
-    data-show="minutes" 
-    data-piece-id="<%= @piece.id %>" 
-    data-path="<%= get_logs_pieces_path %>" 
-  ></canvas>
-
-<% end %>

@@ -10,6 +10,12 @@
   display: relative;
   height: 100%;
 
+  .unsaved-label {
+    position: absolute;;
+    right: 30px;
+    top: 0px;
+  }
+
   .folder-expand {
     display: none;
     position: absolute;

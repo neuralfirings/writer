@@ -106,36 +106,6 @@ $(document).ready () ->
     clearInterval(auto_save)
     auto_save = undefined
 
-  # Initiate le Chart
-  # if $("#chart-words").length == 1
-  #   console.log "not all"
-  #   pw = $("#chart-words").parent().width()
-  #   $("#chart-words").attr("width", pw).attr("height", Number(pw)*.6)
-  #   ctx = document.getElementById("chart-words").getContext("2d")
-  #   chart_words_data = {
-  #     labels: [],
-  #     datasets: [
-  #       {
-  #         label: "Word Count",
-  #         fillColor: "rgba(220,220,220,0.2)",
-  #         strokeColor: "rgba(220,220,220,1)",
-  #         pointColor: "rgba(220,220,220,1)",
-  #         pointStrokeColor: "#fff",
-  #         pointHighlightFill: "#fff",
-  #         pointHighlightStroke: "rgba(220,220,220,1)",
-  #         data: []
-  #       }
-  #     ]
-  #   };
-  #   window.cwd = chart_words_data
-
-  #   $(".chart-words-data").find("div").each () ->
-  #     chart_words_data.datasets[0].data.push $(this).data("words")
-  #     chart_words_data.labels.push "" #$(this).data("created")
-
-  #   chart_words = new Chart(ctx).Line(chart_words_data);
-  #   window.cw = chart_words
-
   # All Words
   $(".chart-words").each () ->
     path = $(this).data("path")
@@ -319,10 +289,12 @@ $(document).ready () ->
         console.log "error", jqXHR, textStatus, errorThrown
     })
 
+  # Control S, Cmd S
   document.addEventListener "keydown", (e) ->
     if e.keyCode is 83 and ((if navigator.platform.match("Mac") then e.metaKey else e.ctrlKey))
       e.preventDefault()
-      update($(".update").data("path"), false)
+      update($(".update").data("path"), false) # no refresh
+      $(".save").click() # will refresh
       console.log "save"
   , false
 

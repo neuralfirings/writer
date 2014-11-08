@@ -59,6 +59,7 @@
     overflow-x: hidden;
 
     padding: 10px;
+    // padding-bottom: 50px;
 
     font-family: 'Bitter', serif;
     font-size: 18px;
@@ -95,5 +96,14 @@
 }
 
 .stats {
-  color: #AAA;
+  color: #9D9D9D;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #FFF;
+  opacity: .9;
+  padding: 0px 20px 10px 20px;
+  width: 100%;
+  text-align: right;
+  box-shadow: 0px -20px 20px rgba(255, 255, 255, 0.9);
 }

@@ -76,9 +76,9 @@ $(document).ready () ->
 
 
   # Resizing writing space
-  # $(".piece-body").height($(window).height()-135 + "px")
-  # $(window).resize () ->
-  #   $(".piece-body").height($(window).height()-135 + "px")
+  $(".piece-body").css("min-height", $(window).height()-135 + "px")
+  $(window).resize () ->
+    $(".piece-body").css("min-height", $(window).height()-135 + "px")
 
   # Getting time spent writing & autosaving
   save_after_min = 1

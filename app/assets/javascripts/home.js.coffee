@@ -17,6 +17,62 @@ $(document).ready () ->
     $(".folder-expand").hide()
     $(".writing-container").removeClass("col-md-8 col-md-offset-2").addClass("col-md-8")
 
+  # Reordering folders
+  $.ajax({
+    url: $("#folder").data("path-get"),
+    type: "get",
+    success: (data) ->
+      for i, folder of data.folder_order
+        if folder.folder_id != undefined
+          $("#folder").find(".panel[data-folderid='#{folder.folder_id}']").appendTo($("#folder"))
+        for j, piece_id of folder.piece_order
+          folderdiv = $("#folder").find(".panel[data-folderid='#{folder.folder_id}']")
+          piecegroupdiv = folderdiv.find(".list-group")
+          folderdiv.find(".list-group-item[data-pieceid='#{piece_id}']").appendTo piecegroupdiv
+      $("#folder").show()
+  })
+
+  $("#folder").sortable({
+    stop: (event, ui) ->
+      update_folder_structure()
+    })
+
+  $("#folder").find(".list-group").sortable({
+    stop: (event, ui) ->
+      update_folder_structure()
+    })
+
+  update_folder_structure = () ->
+    folder_order = {}
+    j = 0
+    $("#folder").find(".panel").each () ->
+      obj = {folder_id: $(this).data("folderid")}
+      obj.piece_order = {}
+
+      i = 0
+      $(this).find(".list-group-item").each () ->
+        obj.piece_order[i] = $(this).data("pieceid")
+        i++
+
+      folder_order[j] = obj
+      j++
+    # window.obj = folder_order
+    # x = JSON.stringify(folder_order)
+    # console.log x
+
+    data = "folder_order=" + JSON.stringify(folder_order)
+    # console.log "data", data
+
+    $.ajax({
+      url: $("#folder").data("path") + ".json",
+      data: data,
+      type: "post",
+      success: (data) ->
+        console.log data.status
+      error: (jqXHR, textStatus, errorThrown) ->
+        console.log "error", errorThrown #jqXHR, textStatus, 
+    })
+
 
   # Resizing writing space
   $(".piece-body").height($(window).height()-135 + "px")

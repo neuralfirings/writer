@@ -68,6 +68,36 @@ class PiecesController < ApplicationController
     @folder = @pieces.folder_counts
   end
 
+  def get_folder_order 
+    @user = User.find(current_user.id)
+    respond_to do | format |  
+      format.json { render :json => {folder_order: JSON.parse(@user.folderstructure) } }
+    end
+  end
+
+  def update_folder_order
+    if params[:folder_order]
+      @user = User.find(current_user.id)
+      @user.folderstructure = params[:folder_order]
+      if @user.save
+        respond_to do | format |  
+          format.json { render :json => {status: "folder saved"} }
+        end
+      else 
+        respond_to do | format |  
+          format.json { render :json => {status: "error"} }
+        end
+      end
+    else
+      respond_to do | format |  
+        format.json { render :json => {status: "error"} }
+      end
+    end
+  end
+
+  def update_piece_order
+  end
+
   def get_logs
     if current_user
       if params[:piece_id]

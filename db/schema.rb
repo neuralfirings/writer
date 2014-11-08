@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106205341) do
+ActiveRecord::Schema.define(version: 20141108013342) do
 
   create_table "logs", force: true do |t|
     t.string   "title"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20141106205341) do
     t.integer  "chars"
     t.integer  "chars_no_space"
     t.integer  "user_id"
+    t.integer  "order"
   end
 
   add_index "pieces", ["user_id"], name: "index_pieces_on_user_id"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 20141106205341) do
   create_table "tags", force: true do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
+    t.integer "order"
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
@@ -74,6 +76,7 @@ ActiveRecord::Schema.define(version: 20141106205341) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "folderstructure"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

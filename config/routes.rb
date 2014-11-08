@@ -23,6 +23,7 @@ Writer::Application.routes.draw do
     get :get_logs, :on => :collection
     post :update_folder_order, :on => :collection
     get :get_folder_order, :on => :collection
+    post :cleanup, :on => :collection
     # get :update_folder_order, :on => :collection
   end
   # Example of regular route:

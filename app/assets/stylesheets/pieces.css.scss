@@ -11,8 +11,6 @@
   display: relative;
   height: 100%;
 
-
-
   .unsaved-label {
     position: absolute;
     right: 30px;
@@ -58,6 +56,7 @@
     border: 0px;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 
     padding: 10px;
 

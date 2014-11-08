@@ -14,7 +14,9 @@
         <a class="full-screen btn btn-link">full screen</a>
         <input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>">
         <br />
-        <div class="editme editmain piece-body"><%= raw(@piece.body) %></div>
+        <div class="editme editmain piece-body">
+          <%= raw(@piece.body) %>
+        </div>
 
         <div class="possed" data-toggle=".piece-body" style="display:none"></div>
         <br />

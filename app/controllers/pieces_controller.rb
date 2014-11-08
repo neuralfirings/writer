@@ -14,6 +14,8 @@ class PiecesController < ApplicationController
       @piece.folder_list = params[:piece][:folders]
     end
     @piece.user_id = current_user.id
+    rawbody = @piece.body
+    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i strong div br),  attributes: %w())
     @piece.save
     @piece.reload
 
@@ -37,6 +39,8 @@ class PiecesController < ApplicationController
       @piece.folder_list = params[:piece][:folders]
     end
     @piece.user_id = current_user.id
+    rawbody = @piece.body
+    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i strong div br),  attributes: %w())
     @piece.save
     @piece.reload
 
@@ -48,6 +52,14 @@ class PiecesController < ApplicationController
     respond_to do | format |  
       format.html { redirect_to @piece }
       format.json { render :json => @piece.id }
+    end
+  end
+
+  def cleanup
+    @text = params[:text]
+    @santext = ActionController::Base.helpers.sanitize(@text, tags: %w(b i strong div br),  attributes: %w())
+    respond_to do | format |  
+      format.json { render :json => {santext: @santext, rawtext: @text} }
     end
   end
 

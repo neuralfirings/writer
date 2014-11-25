@@ -52,7 +52,7 @@
       color: #000;
     }
   }
-  .piece-body, .note-editable {
+  .piece-body, .note-editor {
     border: 0px;
     height: 100%;
     // min-height: 600px;
@@ -69,6 +69,7 @@
     color: #000;
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Bitter', serif;
+      font-weight: bold;
     }
     &:hover {
       background-color: #F8F8F8;

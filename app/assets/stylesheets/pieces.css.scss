@@ -59,14 +59,16 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    padding: 10px;
-    padding-bottom: 400px;
 
     font-family: 'Bitter', serif;
     font-size: 18px;
-    line-height: 1.5em;
 
     color: #000;
+    .note-editable {
+      padding-bottom: 400px;
+      line-height: 1.5em;
+      padding: 10px;
+    }
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Bitter', serif;
       font-weight: bold;

@@ -4,9 +4,9 @@
     <a class="btn btn-default" role="button" href="<%= pieces_path %>"><i class="fa fa-file-o"></i></a>
   </span>
   <% if is_new or @error == "not your stuff" %>
-    <input type="text" class="piece-folders form-control" placeholder="e.g. draft, blog" value="">
+    <input type="text" class="piece-folders form-control" placeholder="e.g. draft, blog" value="" autocomplete="off" tabindex="-1">
   <% else %>
-    <input type="text" class="piece-folders form-control" placeholder="e.g. draft, blog" value="<%= @piece.folder_list %>">
+    <input type="text" class="piece-folders form-control" placeholder="e.g. draft, blog" value="<%= @piece.folder_list %>" autocomplete="off" tabindex="-1">
   <% end %>
   <span class="input-group-btn">
     <% if is_new %>

@@ -12,7 +12,7 @@
         <a class="folder-expand btn btn-link"><i class="fa fa-angle-double-right"></i></a>
         <a class="folder-collapse btn btn-link"><i class="fa fa-angle-double-left"></i></a>
         <a class="full-screen btn btn-link">full screen</a>
-        <input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>" autocomplete="off">
+        <input type="text" class="piece-title" placeholder="Title" value="<%= @piece.title %>" autocomplete="off" tabindex="-1">
         <br class="hidewhenfullscreen">
         <div class="editme editmain piece-body">
           <%= raw(@piece.body) %>

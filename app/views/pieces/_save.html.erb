@@ -10,9 +10,9 @@
   <% end %>
   <span class="input-group-btn">
     <% if is_new %>
-      <a class="save btn btn-default" role="button" data-path="<%= pieces_path %>" data-title=".piece-title" data-body=".piece-body"><i class="fa fa-floppy-o"></i></a>
+      <a class="save btn btn-default" role="button" data-path="<%= pieces_path %>" data-title=".piece-title" data-body=".note-editable"><i class="fa fa-floppy-o"></i></a>
     <% else %>
-      <a class="update btn btn-default" role="button" data-path="<%= piece_path %>" data-title=".piece-title" data-body=".piece-body"><i class="fa fa-floppy-o"></i></a>
+      <a class="update btn btn-default" role="button" data-path="<%= piece_path %>" data-title=".piece-title" data-body=".note-editable"><i class="fa fa-floppy-o"></i></a>
     <% end %>
     <%= render partial: "pos" %>
     <a class="sidenav-toggle btn btn-default navbar-toggle collapsed" role="button" data-toggle="collapse" data-target="#sidenav" aria-expanded="false" aria-controls="sidenav">

@@ -10,5 +10,7 @@
  *
  *= require_self
  *= require_bootstrap.min
+ *= summernote
+ *= summernote-bs3
  *= require_tree .
  */

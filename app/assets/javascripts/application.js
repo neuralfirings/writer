@@ -15,4 +15,5 @@
 //= require bootstrap.min
 //= require jquery-ui.min
 //= require chart.min
+//= require summernote.min
 //= require_tree .

@@ -13,8 +13,11 @@
       <div class="unsaved-label label label-danger">Unsaved</div>
       <input type="text" class="piece-title" placeholder="New Title">
       <br />
-      <div class="editme editmain piece-body"><div><br /></div></div>
-
+      <% if false %>
+        <div class="editme editmain piece-body"><div><br /></div></div>
+      <% else %>
+        <div class="editme editmain piece-body"></div>
+      <% end %>
       <div class="possed" data-toggle=".piece-body" style="display:none"></div>
       <br />
       <div class="row">

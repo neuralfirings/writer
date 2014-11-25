@@ -73,9 +73,9 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <label>Total Time Spent</label>
-          <canvas class="chart-words" id="chart-time-all" width="" height="200px" style="width: 100%"
-            data-show="minutes_cumulative" 
+          <label>Time Spent Per Day</label><br />
+          <canvas class="chart-words" id="chart-time" width="" height="200px" style="width: 100%"
+            data-show="minutes" 
             data-piece-id="<%= @piece.id %>" 
             data-path="<%= get_logs_pieces_path %>" 
           ></canvas>
@@ -89,9 +89,9 @@
       data-piece-id="<%= @piece.id %>" 
       data-path="<%= get_logs_pieces_path %>" 
     ></canvas><br />
-    <label>Time Spent Per Day</label><br />
-    <canvas class="chart-words" id="chart-time" width="" height="200px" style="width: 100%"
-      data-show="minutes" 
+    <label>Total Time Spent</label>
+    <canvas class="chart-words" id="chart-time-all" width="" height="200px" style="width: 100%"
+      data-show="minutes_cumulative" 
       data-piece-id="<%= @piece.id %>" 
       data-path="<%= get_logs_pieces_path %>" 
     ></canvas>

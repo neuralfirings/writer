@@ -9,13 +9,20 @@ $(document).ready () ->
   $(".folder-collapse").click () ->
     $(".folder-container").hide()
     $(".folder-collapse").hide()
+    $(".piece-title").hide()
+    $(".hidewhenfullscreen").hide()
     $(".folder-expand").show()
-    $(".writing-container").removeClass("col-md-8").addClass("col-md-8 col-md-offset-2")
+    $(".writing-container").addClass("col-md-offset-2")
+    $(".note-editable").css("height", $(window).height()-70 + "px")
+
   $(".folder-expand").click () -> 
     $(".folder-container").show()
     $(".folder-collapse").show()
+    $(".piece-title").show()
+    $(".hidewhenfullscreen").show()
     $(".folder-expand").hide()
-    $(".writing-container").removeClass("col-md-8 col-md-offset-2").addClass("col-md-8")
+    $(".writing-container").removeClass("col-md-offset-2") #.addClass("col-md-8")
+    $(".note-editable").css("height", $(window).height()-135 + "px")
 
   # Reordering folders
   $.ajax({
@@ -74,12 +81,6 @@ $(document).ready () ->
         console.log "error", errorThrown #jqXHR, textStatus, 
     })
 
-
-  # Resizing writing space
-  $(".piece-body").css("min-height", $(window).height()-135 + "px")
-  $(window).resize () ->
-    $(".piece-body").css("min-height", $(window).height()-135 + "px")
-
   # Getting time spent writing & autosaving
   save_after_min = 1
   auto_save_timeout = 2
@@ -88,7 +89,7 @@ $(document).ready () ->
   
   # $(".piece-body").click () ->
   #   update($(".update").data("path"), false)
-  $(".piece-body").keyup () ->
+  $(".note-editable").keyup () ->
     last_activity_time = Date.now()
     if auto_save == undefined
       console.log "kick off autosave"
@@ -101,7 +102,7 @@ $(document).ready () ->
           clearInterval(auto_save)
           auto_save = undefined
       , 1000 * 60 * save_after_min
-  $(".piece-body").focusout () ->
+  $(".note-editable").focusout () ->
     console.log "stop autosave, focusout"
     clearInterval(auto_save)
     auto_save = undefined
@@ -253,15 +254,15 @@ $(document).ready () ->
     rfs.call el
 
   # Wrap Piece-Body in divs
-  divved_html = $ "<div></div>"
-  $(".piece-body").contents().each () ->
-    if $(this)[0].nodeType == Node.TEXT_NODE
-      temp = $ "<div></div>"
-      temp.append $(this)
-      divved_html.append temp
-    else
-      divved_html.append $(this)
-  $(".piece-body").html(divved_html.html())
+  # divved_html = $ "<div></div>"
+  # $(".piece-body").contents().each () ->
+  #   if $(this)[0].nodeType == Node.TEXT_NODE
+  #     temp = $ "<div></div>"
+  #     temp.append $(this)
+  #     divved_html.append temp
+  #   else
+  #     divved_html.append $(this)
+  # $(".piece-body").html(divved_html.html())
 
   # Save New
   $(".save").click () ->
@@ -381,9 +382,17 @@ $(document).ready () ->
     chars = 0
     chars_no_space = 0
     i = 1
+    div = $(".note-editable")
 
-    while i <= div.find("div").length
-      val = $.trim div.find("div:nth-child(" + i + ")").text()
+    # console.log div.children()
+    i = 0
+    # while i < div.children().length
+    for chunk in div.children()
+      # console.log chunk
+      # console.log chunk.text()
+      val = $.trim $(chunk).text()
+      # console.log val
+      val.replace("&nbsp;", " ")
       if val.replace(/\s+/gi, ' ').split(' ')[0] == ""
         word_in_line = 0
       else
@@ -393,7 +402,20 @@ $(document).ready () ->
       words += word_in_line
       chars_no_space += char_in_line_nospace
       chars += char_in_line
-      i++
+      # i++
+
+    # while i <= div.find("div").children().length
+    #   val = $.trim div.find("div:nth-child(" + i + ")").text()
+    #   if val.replace(/\s+/gi, ' ').split(' ')[0] == ""
+    #     word_in_line = 0
+    #   else
+    #     word_in_line = val.replace(/\s+/gi, ' ').split(' ').length
+    #   char_in_line = val.length
+    #   char_in_line_nospace = val.replace(/\s/g,"").length
+    #   words += word_in_line
+    #   chars_no_space += char_in_line_nospace
+    #   chars += char_in_line
+    #   i++
 
     obj = 
       words: words

@@ -15,7 +15,7 @@ class PiecesController < ApplicationController
     end
     @piece.user_id = current_user.id
     rawbody = @piece.body
-    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i u em strong div br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
+    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i u em strong div p br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
     @piece.save
     @piece.reload
 
@@ -40,7 +40,7 @@ class PiecesController < ApplicationController
     end
     @piece.user_id = current_user.id
     rawbody = @piece.body
-    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i u em strong div br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
+    @piece.body = ActionController::Base.helpers.sanitize(rawbody, tags: %w(b i u em strong div p br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
     @piece.save
     @piece.reload
 
@@ -57,7 +57,7 @@ class PiecesController < ApplicationController
 
   def cleanup
     @text = params[:text]
-    @santext = ActionController::Base.helpers.sanitize(@text, tags: %w(b i u em strong div br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
+    @santext = ActionController::Base.helpers.sanitize(@text, tags: %w(b i u em strong div p br ol ul li h1 h2 h3 h4 h5 h6 blockquote pre img iframe a),  attributes: %w(src width height href target))
     respond_to do | format |  
       format.json { render :json => {santext: @santext, rawtext: @text} }
     end

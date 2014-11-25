@@ -59,26 +59,27 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-
     font-family: 'Bitter', serif;
     font-size: 18px;
 
     color: #000;
+
     .note-editable {
       padding-bottom: 400px;
       line-height: 1.5em;
       padding: 10px;
+      
+      &:hover {
+        background-color: #F8F8F8;
+      }
+      &:focus {
+        background-color: #fff;
+        outline: 0px;
+      }
     }
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Bitter', serif;
       font-weight: bold;
-    }
-    &:hover {
-      background-color: #F8F8F8;
-    }
-    &:focus {
-      background-color: #fff;
-      outline: 0px;
     }
     div {
       color: #000;
@@ -86,9 +87,6 @@
     img, iframe {
       max-width: 100%;
     }
-    // .note-editable {
-    //   font-family: 'Bitter', serif;
-    // }
   }
 }
 

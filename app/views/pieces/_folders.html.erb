@@ -7,12 +7,12 @@
         <div class="panel panel-default" data-foldername="<%= f.name %>" data-folderid="<%= f.id %>" >
           <div class="panel-heading" role="tab" id="heading-<%= f.name %>">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name %>" aria-expanded="false" aria-controls="folder-<%= f.name %>">
+              <a data-toggle="collapse" data-parent="#folder" href="#folder-<%= f.name.gsub(/\s+/, "") %>" aria-expanded="false" aria-controls="folder-<%= f.name.gsub(/\s+/, "") %>">
                 <%= f.name %>
               </a>
             </h4>
           </div>
-          <div id="folder-<%= f.name %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
+          <div id="folder-<%= f.name.gsub(/\s+/, "") %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= f.name %>">
             <ul class="list-group">
               <% @pieces.tagged_with([f.name], :on => :folder, :any => true).each do |p| %>
                 <% if p.title == "" %>
